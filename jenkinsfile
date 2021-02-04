@@ -1,0 +1,16 @@
+pipeline {
+    agent { label 'mouniika-node' }
+    stages {
+        stage ("git") {
+            steps {
+                git 'https://github.com/Mouni-ops/maven-hello-world.git'
+            }
+        }
+        stage ("builld") {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+        
+    }
+}
