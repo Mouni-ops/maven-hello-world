@@ -11,6 +11,15 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
+        stage ("deploy-warfile") {
+            steps {
+                sshagent(['deploy-user']) {
+                    sh "scp -o StrictHostKeyChecking=no /home/jenkins/remotedir/workspace/pipeline-project/target/*.jar ec2-user@172.31.37.38:/opt/apache-tomcat-8.5.63/webapps"
+                    //sh "scp -o StrictHostKeyChecking=no /target/*.jar ec2-user@172.31.37.38:/opt/apache-tomcat-8.5.63/webapps" --not working
+    // some block
+                }
+            }
+        }
         
     }
 }
