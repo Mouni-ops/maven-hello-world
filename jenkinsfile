@@ -8,7 +8,10 @@ pipeline {
         }
         stage ("builld") {
             steps {
-                sh 'mvn clean package'
+		def mavenHome = tool name: "maven", type: "maven"   /**it will try to get the maven path of where maven installed **/
+        	def mavenCMD="${mavenHome}/bin/mvn "
+        	sh "${mavenCMD} clean package"
+                
             }
         }
         stage ("deploy-warfile") {
