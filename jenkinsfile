@@ -1,5 +1,7 @@
 pipeline {
     agent any
+    def mavenHome = tool name: "maven", type: "maven"   /**it will try to get the maven path of where maven installed **/
+    def mavenCMD="${mavenHome}/bin/mvn "
     stages {
         stage ("git") {
             steps {
@@ -8,8 +10,7 @@ pipeline {
         }
         stage ("builld") {
             steps {
-		def mavenHome = tool name: "maven", type: "maven"   /**it will try to get the maven path of where maven installed **/
-        	def mavenCMD="${mavenHome}/bin/mvn "
+		
         	sh "${mavenCMD} clean package"
                 
             }
